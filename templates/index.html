@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,29 +22,32 @@
       <div class="controls">
         <div class="file">
           <input type="file" id="pdf" name="pdf" accept="application/pdf" multiple>
-
         </div>
+
         <select id="maxp" aria-label="Páginas a analizar">
           <option value="5">5 páginas</option>
           <option value="10" selected>10 páginas</option>
           <option value="20">20 páginas</option>
         </select>
+
         <button id="go" class="icon-btn" type="submit">Analizar</button>
-        <div class="muted">Solo se extrae el campo <strong>título</strong>.</div>
+        <div class="muted">Ahora se extraen múltiples campos. El filtro de título anterior se mantiene.</div>
       </div>
     </form>
 
     <div id="result" class="result">
-      <div class="empty muted">Sube un archivo PDF y presiona Analizar.</div>
+      <div class="empty muted">Sube uno o varios PDFs y presiona Analizar.</div>
     </div>
 
     <div class="footer muted"></div>
   </div>
 
-<script>
-  const FIELDS = ["titulo"];
+  <!-- Columnas que envía backend -->
+<script id="columnas-data" type="application/json">
+  {{ columnas|tojson }}
 </script>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
 </html>

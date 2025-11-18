@@ -1,49 +1,292 @@
-    :root{
-      --bg:#f6f7fb;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
-      --primary:#0d6efd;
-      --primary-contrast:#ffffff;
-      --border:#e5e7eb;
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --input-bg:#ffffff;
-    }
-    [data-theme="dark"]{
-      --bg:#0b1220;
-      --card:#0f172a;
-      --text:#e5e7ef;
-      --muted:#9aa3b2;
-      --primary:#60a5fa;
-      --primary-contrast:#0b1220;
-      --border:#1f2937;
-      --shadow:0 12px 30px rgba(0,0,0,.45);
-      --input-bg:#0b1220;
-    }
-    *{box-sizing:border-box}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;padding:24px;background:var(--bg);color:var(--text);transition:background-color .35s ease,color .35s ease}
-    .wrap{max-width:980px;margin:auto;background:var(--card);padding:24px 28px;border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);transition:background-color .35s ease,color .35s ease,border-color .35s ease,box-shadow .35s ease}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-    h2{margin:0;font-size:22px}
-    .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:10px}
-    .file{display:inline-block}
-    input[type="file"]{background:var(--input-bg);border:1px dashed var(--border);padding:10px;border-radius:10px;color:var(--text);transition:background-color .35s ease,color .35s ease,border-color .35s ease}
-    select{background:var(--input-bg);color:var(--text);border:1px solid var(--border);padding:10px 12px;border-radius:10px;transition:background-color .35s ease,color .35s ease,border-color .35s ease}
-    button{background:var(--primary);color:var(--primary-contrast);border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:600;transition:transform .05s ease,opacity .2s ease}
-    button:active{transform:translateY(1px)}
-    .icon-btn{display:inline-flex;align-items:center;gap:8px}
-    .muted{color:var(--muted);font-size:13px}
-    .right{display:flex;align-items:center;gap:10px}
-    .toggle{position:relative;width:54px;height:30px;background:var(--border);border-radius:999px;cursor:pointer;border:1px solid var(--border);transition:background-color .25s ease,border-color .25s ease}
-    .knob{position:absolute;top:50%;left:3px;transform:translateY(-50%);width:24px;height:24px;background:#fff;border-radius:50%;transition:left .22s ease,background-color .22s ease}
-    [data-theme="dark"] .knob{left:27px;background:#111827}
-    .labels{display:flex;align-items:center;gap:6px;font-size:13px}
-    .result{margin-top:18px}
-    table{border-collapse:separate;border-spacing:0;width:100%;margin-top:12px;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .35s ease}
-    thead th{background:linear-gradient(180deg, rgba(13,110,253,.95), rgba(13,110,253,.85));color:#fff;text-align:left;padding:12px 14px;transition:background-color .35s ease,color .35s ease}
-    tbody td{border-top:1px solid var(--border);padding:12px 14px;vertical-align:top;background:var(--card);color:var(--text);transition:background-color .35s ease,color .35s ease,border-color .35s ease}
-    @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{transition:none !important}
-    }
-    .empty{padding:14px;border:1px dashed var(--border);border-radius:12px;text-align:center}
-    .footer{margin-top:10px}
+/* =========================================================
+   VARIABLES
+========================================================= */
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #0d6efd;
+  --primary-contrast: #ffffff;
+  --border: #e5e7eb;
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --input-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --card: #0f172a;
+  --text: #e5e7ef;
+  --muted: #9aa3b2;
+  --primary: #60a5fa;
+  --primary-contrast: #0b1220;
+  --border: #1f2937;
+  --shadow: 0 12px 30px rgba(0,0,0,.45);
+  --input-bg: #0b1220;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+* {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   BASE
+========================================================= */
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color .35s ease, color .35s ease;
+}
+
+/* =========================================================
+   QUITAR CONTENEDOR (ANTES .wrap)
+========================================================= */
+.wrap {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.file {
+  display: inline-block;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+input[type="file"] {
+  background: var(--input-bg);
+  border: 1px dashed var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text);
+  transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+}
+
+select {
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+button {
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform .05s ease, opacity .2s ease;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================================================
+   TEXT HELPERS
+========================================================= */
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+.toggle {
+  position: relative;
+  width: 54px;
+  height: 30px;
+  background: var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: background-color .25s ease, border-color .25s ease;
+}
+
+.knob {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  transition: left .22s ease, background-color .22s ease;
+}
+
+[data-theme="dark"] .knob {
+  left: 27px;
+  background: #111827;
+}
+
+.labels {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+/* =========================================================
+   RESULTS & TABLE
+========================================================= */
+.result {
+  margin-top: 18px;
+  width: 100%;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .35s ease;
+}
+
+thead th {
+  background: linear-gradient(180deg, rgba(13,110,253,.95), rgba(13,110,253,.85));
+  color: #fff;
+  text-align: left;
+  padding: 12px 14px;
+}
+
+tbody td {
+  border-top: 1px solid var(--border);
+  padding: 12px 14px;
+  vertical-align: top;
+  background: var(--card);
+  color: var(--text);
+}
+
+/* =========================================================
+   MISC
+========================================================= */
+.empty {
+  padding: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.footer {
+  margin-top: 10px;
+}
+
+/* =========================================================
+   SELECTOR COLUMNAS
+========================================================= */
+.selector-columnas {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  width: 100%;
+}
+
+.selector-columnas h3 {
+  margin-bottom: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Grid flexible */
+.grid-columnas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px 14px;
+  width: 100%;
+}
+
+/* Opción */
+.opcion-columna {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--input-bg);
+  border-radius: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+}
+
+.opcion-columna:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+[data-theme="dark"] .opcion-columna:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.opcion-columna input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.opcion-columna label {
+  margin: 0;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14px;
+}

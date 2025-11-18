@@ -2,11 +2,33 @@ from flask import Flask, request, jsonify, render_template
 import io
 from pdf_utils import extraer_texto_desde_pdf, extraer_campos, CAMPOS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
+
+# Etiquetas legibles para el frontend
+COLUMNAS = {
+    "titulo": "Título",
+    "url": "URL",
+    "fuente": "Fuente",
+    "anio": "Año",
+    "paises": "Países",
+    "issn": "ISSN",
+    "tipoPublicacion": "Tipo Publicación",
+    "nombrePublicacion": "Nombre Publicación",
+    "autores": "Autores",
+    "filiaciones": "Filiaciones",
+    "quartil": "Quartil",
+    "indiceH": "Índice H",
+    "numeroCitas": "Nº Citas",
+    "resumen": "Resumen",
+    "palabrasClave": "Palabras Clave",
+    "introduccion": "Introducción",
+    "metodologia": "Metodología",
+    "conclusion": "Conclusión"
+}
 
 @app.route('/')
 def inicio():
-    return render_template("index.html", campos=CAMPOS)
+    return render_template("index.html", columnas=COLUMNAS)
 
 @app.route('/analizar', methods=['POST'])
 def analizar():
@@ -22,9 +44,9 @@ def analizar():
     flujo = io.BytesIO(archivo.read())
     texto, metadatos = extraer_texto_desde_pdf(flujo, max_paginas=max_paginas)
     campos = extraer_campos(texto, metadatos=metadatos)
-    normalizados = {k.lower(): (v if isinstance(v, str) else str(v)) for k, v in campos.items()}
 
-    return jsonify(normalizados)
+    # Normalizar keys a lower camelCase ya están así en pdf_utils; devolver JSON
+    return jsonify(campos)
 
 if __name__ == '__main__':
     app.run(debug=True)
