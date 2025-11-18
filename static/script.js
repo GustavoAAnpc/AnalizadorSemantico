@@ -1,4 +1,5 @@
-let data = null;
+let data = [];
+
 
 const root = document.documentElement;
 const savedTheme = localStorage.getItem('theme');
@@ -18,34 +19,49 @@ function setTheme(mode){
 
 document.getElementById('form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const f = document.getElementById('pdf').files[0];
-  if(!f) return alert('Selecciona un PDF');
-  const fd = new FormData();
-  fd.append('pdf', f);
-  fd.append('maxp', document.getElementById('maxp').value);
-  const res = await fetch('/analizar', {method:'POST', body: fd});
-  data = await res.json();
-  if(data && !data.error){
-    renderTable(['titulo']);
-  }else{
-    renderError(data && data.error ? data.error : 'Error al procesar el PDF');
+  const files = document.getElementById('pdf').files;
+  if (!files.length) return alert('Selecciona uno o más PDF');
+
+  const maxp = document.getElementById('maxp').value;
+
+  for (const f of files) {
+    const fd = new FormData();
+    fd.append('pdf', f);
+    fd.append('maxp', maxp);
+
+    const res = await fetch('/analizar', { method: 'POST', body: fd });
+    const info = await res.json();
+
+    // <<<<< ESTE ES EL CAMBIO CLAVE >>>>>
+    data.push({ archivo: f.name, ...info });
   }
+
+  renderTable(['archivo', 'titulo']);
 });
+
+
 
 function renderTable(cols){
   const r = document.getElementById('result');
   let html = '<table><thead><tr>';
   for(const c of cols) html += `<th>${c}</th>`;
-  html += '</tr></thead><tbody><tr>';
-  for(const c of cols){
-    const key = c.toLowerCase();
-    let v = data[key] || '';
-    v = v.replace(/\n/g,'<br>');
-    html += `<td>${v}</td>`;
+  html += '</tr></thead><tbody>';
+
+  for(const row of data){
+    html += '<tr>';
+    for(const c of cols){
+      const key = c.toLowerCase();
+      let v = row[key] || '';
+      v = String(v).replace(/\n/g,'<br>');
+      html += `<td>${v}</td>`;
+    }
+    html += '</tr>';
   }
-  html += '</tr></tbody></table>';
+
+  html += '</tbody></table>';
   r.innerHTML = html;
 }
+
 
 function renderError(message){
   const r = document.getElementById('result');
