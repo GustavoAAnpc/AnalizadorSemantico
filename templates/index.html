@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analizador Semántico</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <h2>Analizador Semántico</h2>
+      <div class="right">
+        <div class="labels muted">Modo</div>
+        <div id="themeToggle" class="toggle" title="Cambiar tema">
+          <div class="knob"></div>
+        </div>
+      </div>
+    </div>
+
+    <form id="form" enctype="multipart/form-data">
+      <div class="controls">
+        <div class="file">
+          <input type="file" id="pdf" name="pdf" accept="application/pdf">
+        </div>
+        <select id="maxp" aria-label="Páginas a analizar">
+          <option value="5">5 páginas</option>
+          <option value="10" selected>10 páginas</option>
+          <option value="20">20 páginas</option>
+        </select>
+        <button id="go" class="icon-btn" type="submit">Analizar</button>
+        <div class="muted">Solo se extrae el campo <strong>título</strong>.</div>
+      </div>
+    </form>
+
+    <div id="result" class="result">
+      <div class="empty muted">Sube un archivo PDF y presiona Analizar.</div>
+    </div>
+
+    <div class="footer muted"></div>
+  </div>
+
+  <script>
+    const FIELDS = ["titulo"];
+</script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
